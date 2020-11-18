@@ -41,6 +41,10 @@ class Post(models.Model):
         return self.users.count()
     # rate = models.IntegerField(default=0)
 
+    @property
+    def short_content(self):
+        return self.content[:600]
+
     def __str__(self):
         return self.title
 

@@ -81,8 +81,8 @@
     </div>
 
 
-    <div class="pt-5 mt-5">
-    <h3 class="mb-5 font-weight-bold">6 Comments</h3>
+    <div class="col-12 pt-5 mt-5">
+    <h3 class="mb-5 font-weight-bold">{{ post.comment_set.count }} Comments</h3>
     <ul class="comment-list">
     {% for comment in post.comment_set.all %}
     <li class="comment">

@@ -23,6 +23,7 @@ def signup(request):
             username = user_form.cleaned_data.get('username')
             raw_password = user_form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            UserProfile.objects.create(user=user)
             login(request, user)
             return redirect('index')
     else:
@@ -34,8 +35,11 @@ def signup(request):
 @login_required
 def profile(request):
     profile = UserProfile.objects.filter(user=request.user).first()
-    if not profile:
-        form = CustomProfile()
+    if request.method == 'GET':
+        if not profile:
+            form = CustomProfile()
+        else:
+            form = CustomProfile(instance=profile)
         return render(request, 'registration/profile.html', {'form': form})
     if request.method == 'POST':
         form = CustomProfile(request.POST, request.FILES, instance=profile)
@@ -44,9 +48,6 @@ def profile(request):
             profile.user = request.user
             profile.save()
             return redirect('index')
-    else:
-        form = CustomProfile(instance=profile)
-    return render(request, 'registration/profile.html', {'form': form})
 
 
 def list(request):

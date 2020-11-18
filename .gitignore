@@ -1,0 +1,6 @@
+venv/
+src/media/photos/
+src/media/profile_image/
+*.pyc
+.vscode/
+*.sqlite3

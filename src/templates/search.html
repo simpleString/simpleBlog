@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method='GET' action="{% url 'list' %}">
+    <h1>Поиск по статьям</h1>    
+    <input class="btn btn-sm btn-outline-secondary" type="text" name="q" placeholder="Search posts"/>
+    <input class="btn btn-sm btn-outline-secondary" type="submit" value="Найти"/>
+</form>
+{% endblock content %}
+

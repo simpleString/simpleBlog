@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- <div class='container'>
+    <div class="col-md-6 px-0">
+        <h1 class="display-4">{{ post.title }}</h1>
+        <div class="col-auto d-none d-lg-block">
+        <img src="{{post.photo.url}}" width="250" height="250">
+        </div>
+        <p class="lead my-3">{{ post.content | safe }}</p>
+    </div>   
+    {% if post.user == user %}
+        <a href="{% url 'update' post.pk %}" style="padding: 5px; margin: 5px;" class="btn btn-sm btn-outline-secondary">Update</a><br/>
+    {% endif %}
+    <hr/>
+</div> 
+<div class='container'>
+    <div class="col-md-6 px-0">
+        {% for comment in post.comment_set.all %}
+        <br/>
+        <img src="{{ comment.user.profile.image_url }}" width="50" height="50">
+        {{comment.user.name}}
+        <p style="border: 1px solid rgb(141, 141, 141);
+        padding: 10px;" >{{comment.text}}</p>
+        {% endfor %}
+    </div>  
+</div>    
+    {% if user.is_authenticated %}
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-sm btn-outline-secondary" value="Create"/>
+        </form>
+    {% endif %} -->
+
+<div class="container">
+    <div class="row d-flex">
+    <div class="col-lg-8 px-md-5 py-5">
+    <div class="row pt-md-4">
+    <h1 class="mb-3">{{ post.title }}</h1>
+    <div class="col-12 p-1">{{ post.content | safe }}</div>
+    <div class="row col-12">
+        <div id="likes">{{ post.rate }}</div><button onclick="like()">likes</button><p>
+    </div>
+    <script>
+        function like() {
+            console.log("hello world");
+            $.ajax({
+            url : "{% url 'likes' pk=post.pk %}", // the endpoint
+            type : "POST", // http method
+            data : { 
+                user : '{{ user.pk }}',
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }, // data sent with the post request
+
+            success : function(json) {
+                console.log(json)
+                document.getElementById("likes").innerText = json.data
+            }
+        })
+        }
+        // $("#likes").submit(function (e) {
+        //     e.preventDefault();
+        //     var serializedData = $(this).serialize();
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{% url 'likes' pk=post.pk %}",
+        //         data: serializedData,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }})}
+    </script>
+    <p>
+    <div class="about-author d-flex p-4 bg-light">
+    <div class="bio mr-5">
+    <img src="{{ post.user.profile.image_url }}" width="100" height="100" alt="Image placeholder" class="img-fluid mb-4" data-pagespeed-url-hash="2239758388" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+    </div>
+    <div class="desc">
+    <h3>{{ post.user.username }}</h3>
+    <p>{{ post.user.profile.bio }}</p>
+    </div>
+    </div>
+
+
+    <div class="pt-5 mt-5">
+    <h3 class="mb-5 font-weight-bold">6 Comments</h3>
+    <ul class="comment-list">
+    {% for comment in post.comment_set.all %}
+    <li class="comment">
+    <div class="vcard bio">
+    <img src="{{ comment.user.profile.image_url }}" width="50" height="50" alt="Image placeholder" data-pagespeed-url-hash="2239758388" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+    </div>
+    <div class="comment-body">
+    <h3>{{ comment.user.username }}</h3>
+    <div class="meta">October 03, 2018 at 2:21pm</div>
+    <p>{{ comment.text }}</p>
+    </div>
+    </li>
+    {% endfor %}
+
+    {% if user.is_authenticated %}  
+    <div class="comment-form-wrap pt-5">
+    <h3 class="mb-5">Leave a comment</h3>
+    <form class="p-3 p-md-5 bg-light" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+    <label for="name">{{ form.text.label_tag }}</label>
+    {{ form.text }}
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+    </div> 
+    </form>
+    </div>
+    {% endif %}
+    </div>
+    </div> 
+    </div> 
+
+    <div class="col-lg-4 sidebar ftco-animate bg-light pt-5 fadeInUp ftco-animated">
+        {% if post.user == user %}
+        <a href="{% url 'update' post.pk %}"  class="btn btn-outline-secondary">Update</a><br/>
+        {% endif %}
+    </div>
+    </div>
+    </div>
+
+{% endblock content %}

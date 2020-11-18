@@ -1,0 +1,87 @@
+{% load static %}
+<!--DOCTYPE html -->
+<html>
+  <head>
+    <title>{% block head_title %}Post{% endblock head_title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body>
+      <!-- <a href="{% url 'index' %}">Main</a>
+      <a href="{% url 'list' %}">Posts</a>
+      {% if user.is_authenticated %}
+        {{ user.username }}
+        <a href="{% url 'create' %}">Create Post</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <img src="{{ user.profile.image_url }}" width="40" height="40">
+      {% else %}
+        <form class="form-inline my-2 my-lg-0">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">SignUp</a>
+        </form>
+      {% endif %} -->
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'index' %}">Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'list' %}">Posts<span class="sr-only">(current)</span></a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'create' %}">Create Post</a>
+            </li>
+            {% endif %}
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li> -->
+          </ul>
+          <!-- <form class="form-inline my-2 my-md-0">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-secondary btn-number">
+                    <i class="fa fa-search">Go</i>
+                </button>
+              </div>
+            </div>
+          </form> -->
+          <ul class="navbar-nav mr-lf-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            <li class="nav-item active">
+              <a href="{% url 'profile' %}"><img src="{{ user.profile.image_url }}" width="40" height="40"></a>
+            </li>
+            {% else %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'signup' %}">SignUp</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      <div class="container">
+        {% block content %}{% endblock content %}
+      </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

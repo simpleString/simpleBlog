@@ -19,7 +19,7 @@
               <span><i class="icon-comment2 mr-2"></i>{{ obj.comment_set.count }} Comment</span>
               </p>
             </div>
-            <p class="mb-4">{{ obj.short_content | safe }}</p>
+            <!-- <p class="mb-4">{{ obj.short_content | safe }}</p> -->
             <p><a href="{{ obj.get_url }}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
           </div>
         </div>
@@ -27,7 +27,7 @@
     {% endfor %}
     </div>
   </div> 
-</div>
+
 <div class="col-xl-4 sidebar ftco-animate bg-light pt-5 fadeInUp ftco-animated">
   <form class="sidebar-box pt-md-4" action="{% url 'list' %}" method='GET'>
     <div class="input-group input-group-sm">
